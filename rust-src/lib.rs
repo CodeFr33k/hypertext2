@@ -1,6 +1,7 @@
 use wasm_bindgen::prelude::*;
-use web_sys::console;
+//use web_sys::console;
 
+//use caml::*;
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -21,7 +22,12 @@ pub fn main_js() -> Result<(), JsValue> {
 
 
     // Your code goes here!
-    console::log_1(&JsValue::from_str("Hello world!"));
+    //console::log_1(&JsValue::from_str("Hello world"));
 
     Ok(())
+}
+
+#[wasm_bindgen()]
+pub fn go() -> String {
+    String::new()
 }
