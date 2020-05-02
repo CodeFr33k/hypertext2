@@ -9,12 +9,23 @@ it('read line', (done) => {
     });
     reader.read('a');
     reader.read('\n');
+    reader.end();
     disposer();
 });
 
-it('clear readline', () => {
+it('clear readline on newline', () => {
     const reader = new Reader();
     reader.read('a');
     reader.read('\n');
     expect(reader.readline).toHaveLength(0);
 });
+
+it('clear readlines on end', () => {
+    const reader = new Reader();
+    reader.read('a');
+    reader.read('\n');
+    reader.end();
+    expect(reader.readlines).toHaveLength(0);
+});
+
+

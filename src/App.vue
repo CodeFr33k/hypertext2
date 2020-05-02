@@ -48,10 +48,9 @@ export default class extends Vue {
     private readText(text: string) {
         for(let i = 0; i < text.length; i++) {
             const char = text.substr(i, 1);
-            console.log({char});
             this.reader.read(char);
         }
-        console.log(this.reader.lines);
+        this.reader.end();
     }
 }
 </script>

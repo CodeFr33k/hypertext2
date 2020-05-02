@@ -5,7 +5,7 @@ import router from './router'
 
 import("../pkg/index.js")
     .then(module => {
-        console.log(module.go());
+        //console.log(module.go());
     })
     .catch(console.error);
 
