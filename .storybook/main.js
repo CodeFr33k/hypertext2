@@ -33,6 +33,25 @@ module.exports = {
             ],
         })
 
+        //console.dir(config, { depth: null });
+
+        config.module.rules.push({
+            test: /\.sass$/,
+            use: [
+                'style-loader', 
+                'css-loader', 
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        sassOptions: {
+                            indentedSyntax: true,
+                        },
+                    }
+                }
+            ],
+            include: path.resolve(__dirname, '../'),
+        });
+
         config.plugins.push(new ForkTsCheckerWebpackPlugin())
 
         return config

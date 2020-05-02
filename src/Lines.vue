@@ -22,17 +22,16 @@ export default class extends Vue {
     @Prop() readonly reader!: any
 }
 </script>
-<style>
+<style lang="sass">
+.line
+    border: 1px solid rgba(0,0,0,0.25)
+    border-radius: 6px
+    margin-bottom: 15px
+    min-height: 26px
+    font-size: 20px
+    padding: 0 15px
+    display: flex
+    flex-direction: column
+    justify-content: center
 
-.line {
-    border: 1px solid rgba(0,0,0,0.25);
-    border-radius: 6px;
-    margin-bottom: 15px;
-    min-height: 26px;
-    font-size: 20px;
-    padding: 0 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 </style>
