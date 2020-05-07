@@ -1,6 +1,6 @@
 <template>
     <div class="app-component">
-        <div v-if="reader.lines.length == 0">
+        <div v-if="store.lines.length == 0">
             <label
                 for="file-upload"
                 class="file-upload-button"
@@ -14,7 +14,8 @@
             />
         </div>
         <div v-else>
-            <Lines :reader="reader" />
+            <Lines :lines="store.lines" />
+            <JsButton />
         </div>
     </div>
 </template>
@@ -26,48 +27,42 @@ import {
 } from 'vue-property-decorator';
 import Reader from '@/Reader';
 import Lines from '@/Lines.vue';
-
-const reader = new FileReader();
+import JsButton from '@/JsButton.vue';
+import store from '@/store';
 
 @Observer
 @Component({
     components: {
+        JsButton,
         Lines,
     }
 })
 export default class extends Vue {
-    private reader: Reader = new Reader()
+    store: any = store;
     public readFile(e: any): void {
-        const file = e.target.files[0];
+        const reader = new FileReader();
         reader.onload = (e: any) => {
             const text: any = e.target.result;
-            this.readText(text);
+            store.readText(text);
         };
+        const file = e.target.files[0];
         reader.readAsText(file);
-    }
-    private readText(text: string) {
-        for(let i = 0; i < text.length; i++) {
-            const char = text.substr(i, 1);
-            this.reader.read(char);
-        }
-        this.reader.end();
     }
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
+@import '@/common'
 
-body {
-  font-family: 'Roboto', sans-serif;
-}
+.file-upload-button
+    background: silver
+    padding: 8px 10px
+    display: inline-block
 
-input[type=file] {
-    display: none;
-}
-
-.file-upload-button {
-    background: silver;
-    padding: 8px 10px;
-}
+.js-button-component
+    position: fixed
+    bottom: 15px 
+    left: 50%
+    transform: translateY(-50%) 
 
 </style>

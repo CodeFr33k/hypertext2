@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="lines-component">
         <div 
-            v-for="line in reader.lines"
+            v-for="line in lines"
             class="line"
         >
             {{ line }}
@@ -19,10 +19,13 @@ import {
 @Observer
 @Component
 export default class extends Vue {
-    @Prop() readonly reader!: any
+    @Prop() readonly lines!: any
 }
 </script>
-<style lang="sass">
+<style lang="sass" scoped>
+.lines-component
+    padding: 15px 15px 0
+
 .line
     border: 1px solid rgba(0,0,0,0.25)
     border-radius: 6px

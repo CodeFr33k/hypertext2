@@ -1,23 +1,18 @@
 <template>
-    <Lines :lines="lines"></Lines>
+    <JsButton></JsButton>
 </template>
 
 <script lang="ts">
-import Lines from './Lines.vue';
+import JsButton from './JsButton.vue';
 import {
     Component,
     Vue,
 } from 'vue-property-decorator';
 
 @Component({
-    components: { Lines },
+    components: { JsButton },
 })
 export default class extends Vue {
-    lines = [
-       'abc',
-       'def',
-       'ghi',
-    ]
 };
 </script>
 
