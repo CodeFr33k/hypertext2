@@ -14,7 +14,7 @@ import {
 })
 export default class extends Vue {
     lines = [
-       'abc',
+       'abcddddddddddddddddddddddddddddddddddddddddddddddddddd',
        'def',
        'ghi',
     ]

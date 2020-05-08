@@ -36,5 +36,6 @@ export default class extends Vue {
     display: flex
     flex-direction: column
     justify-content: center
+    overflow-x: hidden
 
 </style>
