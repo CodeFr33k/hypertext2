@@ -25,24 +25,24 @@ it('compute lines from records', () => {
     expect(store.lines).toContain('abc');
 });
 
-it('keep records that match all reducers', () => {
+it('keep lines from records that pass reduction', () => {
     const store = new Store();
     const record = new Record();
     record.lines.push('abc');
     store.records.push(record);
-    store.addReducer(function(record: any) {
-        return record.lines[0] === 'abc';
+    store.addReducer(function(records: any) {
+        return records;
     });
     expect(store.lines).toHaveLength(1);
 });
 
-it('remove records that don\'t match reducers', () => {
+it('remove lines from records that fail reduction', () => {
     const store = new Store();
     const record = new Record();
     record.lines.push('abc');
     store.records.push(record);
-    store.addReducer(function(record: any) {
-        return record.lines[0] === 'def';
+    store.addReducer(function(records: any) {
+        return [];
     });
     expect(store.lines).toHaveLength(0);
 });

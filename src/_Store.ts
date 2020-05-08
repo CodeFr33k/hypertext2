@@ -24,14 +24,12 @@ export default class {
         this.disposer();
     }
     @computed get lines() {
+        let records: any[] = this.records;
+        for(let reducer of this.reducers) {
+            records = reducer(records);
+        }
         let lines: string[] = [];
-        for(let record of this.records) {
-            const someFail = this.reducers.some((reducer: any) => {
-                return !reducer(record);
-            });
-            if(someFail) {
-                continue;
-            }
+        for(let record of records) {
             lines = lines.concat(record.lines);
         } 
         return lines;
