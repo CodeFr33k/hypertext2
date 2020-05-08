@@ -15,7 +15,7 @@ import {
 export default class extends Vue {
     lines = [
        'abcddddddddddddddddddddddddddddddddddddddddddddddddddd',
-       'def',
+       'def <a href="http://localhost">http://localhostt</a>',
        'ghi',
     ]
 };

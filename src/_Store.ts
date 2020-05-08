@@ -6,6 +6,7 @@ import {
 import Reader from '@/Reader';
 import RecordsFactory from '@/RecordsFactory';
 import Record from '@/Record';
+import * as util from '@/util';
 
 export default class {
     reader: Reader;
@@ -30,10 +31,21 @@ export default class {
         }
         let lines: string[] = [];
         for(let record of records) {
-            lines = lines.concat(record.lines);
+            const htmlLines = record.lines.map((line: string) => {
+                const uris = util.matchUris(line);
+                return uris.reduce((line, uri) => {
+                    return line.replace(
+                        uri,
+                        '<a ' +
+                        'target="blank" ' +
+                        'rel="noopener noreferrer" ' +
+                        `href=${uri}>${uri}</a>`
+                    );
+                }, line);
+            }); 
+            lines = lines.concat(htmlLines);
         } 
         return lines;
-
     }
     readText(text: string) {
         for(let i = 0; i < text.length; i++) {

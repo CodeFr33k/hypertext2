@@ -3,9 +3,8 @@
         <div 
             v-for="line in lines"
             class="line"
-        >
-            {{ line }}
-        </div>             
+            v-html="line"
+        ></div>             
     </div>
 </template>
 <script lang="ts">

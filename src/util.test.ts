@@ -9,3 +9,8 @@ it('eval javascript', () => {
     expect(fn(1)).toBeTruthy();
 
 });
+
+it('match URIs', () => {
+    const uris = util.matchUris('hello file:///localhost/hello hello');
+    expect(uris[0]).toBe('file:///localhost/hello');
+});
