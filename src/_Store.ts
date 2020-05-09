@@ -24,13 +24,16 @@ export default class {
     close() {
         this.disposer();
     }
-    @computed get lines() {
+    @computed get currentRecords() {
         let records: any[] = this.records;
         for(let reducer of this.reducers) {
             records = reducer(records);
         }
-        let lines: string[] = [];
-        for(let record of records) {
+        return records; 
+    }
+    @computed get lines() {
+       let lines: string[] = [];
+        for(let record of this.currentRecords) {
             const htmlLines = record.lines.map((line: string) => {
                 const uris = util.matchUris(line);
                 return uris.reduce((line, uri) => {

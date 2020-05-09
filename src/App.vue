@@ -1,5 +1,6 @@
 <template>
     <div class="app-component">
+        <div class="record-count">Records: {{store.currentRecords.length}}</div>
         <div v-if="store.lines.length == 0">
             <label
                 for="file-upload"
@@ -56,6 +57,9 @@ export default class extends Vue {
 <style lang="sass">
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
 @import '@/common.sass'
+
+.record-count
+    padding: 15px 15px 0
 
 .file-upload-button
     background: silver
