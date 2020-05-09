@@ -27,6 +27,6 @@ export default function  parseRecords(lines: string[]) {
         record: undefined,
         isReadingData: false,
     });
-    return result.records;
+    return result.records.reverse();
 }
 
