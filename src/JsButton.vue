@@ -40,7 +40,7 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 
 .js-upload-button
     background: orange
