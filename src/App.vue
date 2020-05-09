@@ -16,6 +16,7 @@
         <div v-else>
             <Lines :lines="store.lines" />
             <JsButton />
+            <ReloadButton />
         </div>
     </div>
 </template>
@@ -28,6 +29,7 @@ import {
 import Reader from '@/Reader';
 import Lines from '@/Lines.vue';
 import JsButton from '@/JsButton.vue';
+import ReloadButton from '@/ReloadButton.vue';
 import store from '@/store';
 
 @Observer
@@ -35,6 +37,7 @@ import store from '@/store';
     components: {
         JsButton,
         Lines,
+        ReloadButton,
     }
 })
 export default class extends Vue {
@@ -63,6 +66,12 @@ export default class extends Vue {
     position: fixed
     bottom: 15px 
     left: 50%
+    transform: translateY(-50%) 
+
+.reload-button-component
+    position: fixed
+    bottom: 15px 
+    left: 70%
     transform: translateY(-50%) 
 
 </style>
