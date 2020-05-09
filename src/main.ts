@@ -2,6 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
+import store from '@/store';
+
+// add store to window,
+// so users can access in browser console.
+(window as any).store = store;
 
 import("../pkg/index.js")
     .then(module => {
