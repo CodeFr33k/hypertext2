@@ -8,6 +8,8 @@
             id="js-upload"
             type="file"
             @change="readJavascriptFile"
+            accept=".js"
+            multiple
         />
     </div>
 </template>
@@ -27,15 +29,12 @@ import * as util from '@/util';
     }
 })
 export default class extends Vue {
-    public readJavascriptFile(e: any): void {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-            const text: any = e.target.result;
+    public async readJavascriptFile(e: any) {
+        for(let file of e.target.files) {
+            const text: string = await util.readTextFromFile(file);
             const reducer = util.evalFn(text);
             store.addReducer(reducer);
         };
-        const file = e.target.files[0];
-        reader.readAsText(file);
     }
 }
 </script>

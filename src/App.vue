@@ -12,6 +12,8 @@
                 id="file-upload"
                 type="file"
                 @change="readFile"
+                accept=".caml"
+                multiple
             />
         </div>
         <div v-else>
@@ -32,6 +34,7 @@ import Lines from '@/Lines.vue';
 import JsButton from '@/JsButton.vue';
 import ReloadButton from '@/ReloadButton.vue';
 import store from '@/store';
+import * as util from '@/util';
 
 @Observer
 @Component({
@@ -43,14 +46,11 @@ import store from '@/store';
 })
 export default class extends Vue {
     store: any = store;
-    public readFile(e: any): void {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-            const text: any = e.target.result;
+    public async readFile(e: any) {
+        for(let file of e.target.files) {
+            const text: string = await util.readTextFromFile(file);
             store.readText(text);
         };
-        const file = e.target.files[0];
-        reader.readAsText(file);
     }
 }
 </script>

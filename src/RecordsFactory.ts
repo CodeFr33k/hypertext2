@@ -8,7 +8,8 @@ function create() {
     const records = observable([]);
     const customFunctions: any = {
        load(lines: any) {
-            records.replace(parseRecords(lines));    
+           const newRecords = parseRecords(lines);
+           records.replace(records.concat(newRecords));    
         },
     };
     return new Proxy(records, {

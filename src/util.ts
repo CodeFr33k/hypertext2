@@ -10,3 +10,14 @@ export function matchUris(text: string) {
     const uris = text.match(re);
     return uris || [];
 }
+
+export async function readTextFromFile(file: any): Promise<string> {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            const text: any = e.target.result;
+            resolve(text);
+        };
+        reader.readAsText(file);
+    });
+}
