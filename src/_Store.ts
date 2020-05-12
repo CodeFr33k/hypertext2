@@ -45,7 +45,18 @@ export default class {
                         `href=${uri}>${uri}</a>`
                     );
                 }, line);
-            }); 
+            });
+            for(let annotation of record.annotations) {
+                // FIXME: implement as dispatch table
+                // instead of conditional logic.
+                if(annotation.key === 'img') {
+                    htmlLines.unshift(
+                        '<img ' +
+                        'width="400px" ' +
+                        `src=${annotation.value} />`
+                    );
+                }
+           }
             lines = lines.concat(htmlLines);
         } 
         return lines;
