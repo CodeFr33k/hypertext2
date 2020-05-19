@@ -27,5 +27,30 @@ it('parse img', () => {
         ')',
     ];
     const records = parseRecords(lines);
-    expect(records[0].annotations).toHaveLength(1);
+    expect(records[0].images).toHaveLength(1);
+});
+
+it('parse key value', () => {
+     const lines: string[] = [
+        'abc',
+        '(`',
+        'abc = 123',
+        ')',
+    ];
+    const records = parseRecords(lines);
+    expect(records[0].annotations).toContainEqual({
+        key: 'abc',
+        value: '123',        
+    });
+});
+
+it('parse tag', () => {
+     const lines: string[] = [
+        'abc',
+        '(`',
+        '123',
+        ')',
+    ];
+    const records = parseRecords(lines);
+    expect(records[0].annotations).toContain('123');
 });

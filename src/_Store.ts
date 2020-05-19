@@ -25,15 +25,22 @@ export default class {
         this.disposer();
     }
     @computed get currentRecords() {
-        let records: any[] = this.records;
+        let records: any[] = [...this.records];
         for(let reducer of this.reducers) {
             records = reducer(records);
         }
         return records; 
     }
     @computed get lines() {
-       let lines: string[] = [];
-        for(let record of this.currentRecords) {
+        let lines: string[] = [];
+        let records: any[] = this.records.map((record: any) => {
+            record.userData = []; 
+            return record;
+        });
+        for(let reducer of this.reducers) {
+            records = reducer(records);
+        }
+        for(let record of records) {
             const htmlLines = record.lines.map((line: string) => {
                 const uris = util.matchUris(line);
                 return uris.reduce((line, uri) => {
@@ -46,18 +53,23 @@ export default class {
                     );
                 }, line);
             });
-            for(let annotation of record.annotations) {
-                // FIXME: implement as dispatch table
-                // instead of conditional logic.
-                if(annotation.key === 'img') {
-                    htmlLines.unshift(
-                        '<img ' +
-                        'width="400px" ' +
-                        `src=${annotation.value} />`
-                    );
-                }
-           }
+            for(let img of record.images) {
+                htmlLines.unshift(
+                    '<img ' +
+                    'width="400px" ' +
+                    `src=${img} />`
+                );
+            }
             lines = lines.concat(htmlLines);
+            if(record.userData.length == 0) {
+                continue;
+            }
+            lines[lines.length - 1] = '@userData (`';
+            for(let data of record.userData) {
+                lines.push(data.toString());   
+            }
+            lines.push(')');
+            lines.push('');
         } 
         return lines;
     }

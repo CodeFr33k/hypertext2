@@ -19,16 +19,23 @@ export default function  parseRecords(lines: string[]) {
             return result;
         }
         if(result.isReadingData) {
-            if(line.includes('img = ')) {
-                const uris = util.matchUris(line);
-                if(uris.length > 0) {
-                    // NOTE: only supports one image uri currently
-                    // per key-value
-                    result.record.annotations.push({
-                        value: uris[0],
-                        key: 'img',
-                    });
+            const match = util.matchKeyValue(line);
+            const tag = util.matchTag(line);
+            if(match) {
+                result.record.annotations.push({
+                    key: match.key,
+                    value: match.value,
+                });
+                if(match.key === 'img') {
+                    const uris = util.matchUris(match.value);
+                    if(uris.length > 0) {
+                        // NOTE: only supports one image uri currently
+                        // per key-value
+                        result.record.images.push(uris[0]);
+                    }
                 }
+            } else if(tag) {
+                result.record.annotations.push(tag);
             }
         }
         if(!line && !result.isReadingData) {

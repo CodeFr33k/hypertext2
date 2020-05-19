@@ -21,3 +21,23 @@ export async function readTextFromFile(file: any): Promise<string> {
         reader.readAsText(file);
     });
 }
+
+export function matchKeyValue(text: string) {
+    const match = text.match(/\s*(.+) = (.+)/);
+    if(!match) {
+        return null;
+    }
+    return {
+        key: match[1],
+        value: match[2],
+    };
+}
+
+export function matchTag(text: string) {
+    const match = text.match(/\s*(.+)/);
+    if(!match) {
+        return null;
+    }
+    return match[1];
+}
+

@@ -21,6 +21,7 @@ it('compute lines from records', () => {
     const store = new Store();
     const record = new Record();
     record.lines.push('abc');
+    record.lines.push('');
     store.records.push(record);
     expect(store.lines).toContain('abc');
 });
@@ -29,21 +30,36 @@ it('keep lines from records that pass reduction', () => {
     const store = new Store();
     const record = new Record();
     record.lines.push('abc');
+    record.lines.push('');
     store.records.push(record);
     store.addReducer(function(records: any) {
         return records;
     });
-    expect(store.lines).toHaveLength(1);
+    expect(store.lines).toHaveLength(2);
 });
 
 it('remove lines from records that fail reduction', () => {
     const store = new Store();
     const record = new Record();
     record.lines.push('abc');
+    record.lines.push('');
     store.records.push(record);
     store.addReducer(function(records: any) {
         return [];
     });
     expect(store.lines).toHaveLength(0);
+});
+
+it('display user data when modified by reducer', () => {
+    const store = new Store();
+    const record = new Record();
+    record.lines.push('abc');
+    record.lines.push('');
+    store.records.push(record);
+    store.addReducer(function(records: any) {
+        records[0].userData.push('123');
+        return records;
+    });
+    expect(store.lines).toHaveLength(5);
 });
 
