@@ -54,3 +54,15 @@ it('parse tag', () => {
     const records = parseRecords(lines);
     expect(records[0].annotations).toContain('123');
 });
+
+it('parse key value on one line', () => {
+     const lines: string[] = [
+        '(`abc = 123)',
+    ];
+    const records = parseRecords(lines);
+    expect(records[0].annotations).toContainEqual({
+        key: 'abc',
+        value: '123',        
+    });
+});
+

@@ -10,17 +10,23 @@ export default function  parseRecords(lines: string[]) {
         if(result.record) {
             result.record.lines.push(line);
         }
-        if(line.startsWith('(`')) {
+        const match = line.match(/\(`(.+)\)/);
+        let tmp = line;
+        if(match) {
+            result.isReadingData = true;
+            tmp = match[1];
+        }
+        else if(line.startsWith('(`')) {
             result.isReadingData = true;
             return result;
         }
-        if(line.startsWith(')')) {
+        else if(line.startsWith(')')) {
             result.isReadingData = false;
             return result;
         }
         if(result.isReadingData) {
-            const match = util.matchKeyValue(line);
-            const tag = util.matchTag(line);
+            const match = util.matchKeyValue(tmp);
+            const tag = util.matchTag(tmp);
             if(match) {
                 result.record.annotations.push({
                     key: match.key,
