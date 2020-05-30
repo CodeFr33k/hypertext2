@@ -66,3 +66,12 @@ it('parse key value on one line', () => {
     });
 });
 
+it('parse 2 records from 2 one liners', () => {
+     const lines: string[] = [
+        'abc (`abc = 123)',
+        'def (`abc = 123)',
+    ];
+    const records = parseRecords(lines);
+    expect(records).toHaveLength(2);
+});
+

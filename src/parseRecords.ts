@@ -44,7 +44,7 @@ export default function  parseRecords(lines: string[]) {
                 result.record.annotations.push(tag);
             }
         }
-        if(!line && !result.isReadingData) {
+        if(match || !line && !result.isReadingData) {
             result.record = undefined;
             result.isReadingDate = false;
         }
