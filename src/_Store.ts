@@ -66,7 +66,7 @@ export default class Store {
                 htmlLines.unshift(
                     '<iframe ' +
                     `:key="${index}" ` +
-                    `srcdoc="${html}" ` +
+                    `src="${html}" ` +
                     '></iframe>'
                 );
             }
@@ -102,7 +102,8 @@ export default class Store {
         this.addReducer(reducer);
     }
     loadHtml(text: string) {
-        this.htmls.push(text);
+        const html = 'data:text/html;charset=utf-8,' + escape(text);
+        this.htmls.push(html);
     }
     addReducer(reducer: any) {
         this.reducers.push(reducer);
