@@ -6,13 +6,17 @@ import {
 import Reader from '@/Reader';
 import RecordsFactory from '@/RecordsFactory';
 import Record from '@/Record';
-import * as util from '@/util';
+import Manifest from '@/Manifest';
+import * as Util from '@/util';
+import * as Uri from '@/Uri';
 
-export default class {
+export default class Store {
     reader: Reader;
     records: any;
     disposer: any;
+    handler: any;
     @observable reducers: any = [];
+    @observable htmls: any = [];
 
     constructor() {
         this.reader = new Reader();
@@ -20,6 +24,11 @@ export default class {
         this.disposer = observe(this.reader.lines, (delta: any) => {
             this.records.load(delta.object);
         });
+        this.handler = {
+            'js': this.loadJavascript.bind(this),
+            'caml': this.loadCaml.bind(this),
+            'html': this.loadHtml.bind(this),
+        }
     }
     close() {
         this.disposer();
@@ -42,7 +51,7 @@ export default class {
         }
         for(let record of records) {
             const htmlLines = record.lines.map((line: string) => {
-                const uris = util.matchUris(line);
+                const uris = Util.matchUris(line);
                 return uris.reduce((line, uri) => {
                     return line.replace(
                         uri,
@@ -53,6 +62,14 @@ export default class {
                     );
                 }, line);
             });
+            for(let [index, html] of this.htmls.entries()) {
+                htmlLines.unshift(
+                    '<iframe ' +
+                    `:key="${index}" ` +
+                    `srcdoc="${html}" ` +
+                    '></iframe>'
+                );
+            }
             for(let img of record.images) {
                 htmlLines.unshift(
                     '<img ' +
@@ -73,14 +90,37 @@ export default class {
         } 
         return lines;
     }
-    readText(text: string) {
+    loadCaml(text: string) {
         for(let i = 0; i < text.length; i++) {
             const char = text.substr(i, 1);
             this.reader.read(char);
         }
         this.reader.end();
     }
+    loadJavascript(text: string) {
+        const reducer = Util.evalFn(text);
+        this.addReducer(reducer);
+    }
+    loadHtml(text: string) {
+        this.htmls.push(text);
+    }
     addReducer(reducer: any) {
         this.reducers.push(reducer);
     }
+    async loadManifest(uri: string) {
+        const manifest = await Manifest.fetch(uri)
+        const files = manifest.toFiles();
+        for(let file of files) {
+            const fileuri = uri.replace(/[^\\/]+$/, file);
+            this.loadFile(fileuri);
+        }
+    }
+    async loadFile(file: any) {
+        const ext: string | undefined = Util.parseExt(file);
+        const text = await Uri.fetchText(file);
+        if(ext) {
+            this.handler[ext](text); 
+        }
+    }
 }
+

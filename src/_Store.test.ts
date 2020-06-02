@@ -1,6 +1,8 @@
 import { observe } from 'mobx';
 import Record from '@/Record';
 import Store from '@/_Store';
+import * as Uri from '@/Uri';
+jest.mock('@/Uri');
 
 it('load records when reader changes', (done) => {
     const store = new Store();
@@ -61,5 +63,29 @@ it('display user data when modified by reducer', () => {
         return records;
     });
     expect(store.lines).toHaveLength(5);
+});
+
+it('load javascript file', async () => {
+    (Uri.fetchText as jest.Mock).mockReturnValueOnce(Promise.resolve('() => {}'));
+    const store = new Store();
+    const file = 'http://localhost/noop.js';
+    await store.loadFile(file);
+    expect(store.reducers).toHaveLength(1);
+});
+
+it('load caml file', async () => {
+    (Uri.fetchText as jest.Mock).mockReturnValueOnce(Promise.resolve('abc\n'));
+    const store = new Store();
+    const file = 'http://localhost/abc.caml';
+    await store.loadFile(file);
+    expect(store.records).toHaveLength(1);
+});
+
+it('load html file', async () => {
+    (Uri.fetchText as jest.Mock).mockReturnValueOnce(Promise.resolve('<div></div>'));
+    const store = new Store();
+    const file = 'http://localhost/abc.html';
+    await store.loadFile(file);
+    expect(store.htmls).toHaveLength(1);
 });
 

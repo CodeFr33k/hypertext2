@@ -27,3 +27,4 @@ it('match tag', () => {
     const tag = util.matchTag('   tag name');
     expect(tag).toBe('tag name');
 });
+

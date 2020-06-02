@@ -1,14 +1,14 @@
 <template>
-    <div class="js-button-component">
+    <div class="html-button-component">
         <label
-            for="js-upload"
-            class="js-upload-button"
-        >Js</label>
+            for="html-upload"
+            class="html-upload-button"
+        >Html</label>
         <input
-            id="js-upload"
+            id="html-upload"
             type="file"
-            @change="readJavascriptFile"
-            accept=".js"
+            @change="readHtmlFile"
+            accept=".html"
             multiple
         />
     </div>
@@ -29,10 +29,10 @@ import * as util from '@/util';
     }
 })
 export default class extends Vue {
-    public async readJavascriptFile(e: any) {
+    public async readHtmlFile(e: any) {
         for(let file of e.target.files) {
             const text: string = await util.readTextFromFile(file);
-            store.loadJavascript(text);
+            store.loadHtml(text);
         };
         e.target.value = '';
     }
@@ -41,8 +41,8 @@ export default class extends Vue {
 
 <style lang="sass" scoped>
 
-.js-upload-button
-    background: orange
+.html-upload-button
+    background: green
     border-radius: 50%
     box-sizing: border-radius
     height: 60px

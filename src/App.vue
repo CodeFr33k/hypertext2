@@ -19,6 +19,7 @@
         <div v-else>
             <Lines :lines="store.lines" />
             <JsButton />
+            <HtmlButton />
             <ReloadButton />
         </div>
     </div>
@@ -32,6 +33,7 @@ import {
 import Reader from '@/Reader';
 import Lines from '@/Lines.vue';
 import JsButton from '@/JsButton.vue';
+import HtmlButton from '@/HtmlButton.vue';
 import ReloadButton from '@/ReloadButton.vue';
 import store from '@/store';
 import * as util from '@/util';
@@ -40,6 +42,7 @@ import * as util from '@/util';
 @Component({
     components: {
         JsButton,
+        HtmlButton,
         Lines,
         ReloadButton,
     }
@@ -49,7 +52,7 @@ export default class extends Vue {
     public async readFile(e: any) {
         for(let file of e.target.files) {
             const text: string = await util.readTextFromFile(file);
-            store.readText(text);
+            store.loadCaml(text);
         };
     }
 }
@@ -70,6 +73,12 @@ export default class extends Vue {
     position: fixed
     bottom: 15px 
     left: 50%
+    transform: translateY(-50%) 
+
+.html-button-component
+    position: fixed
+    bottom: 15px 
+    left: 30%
     transform: translateY(-50%) 
 
 .reload-button-component

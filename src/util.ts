@@ -1,3 +1,18 @@
+export async function readTextFromFile(file: any): Promise<string> {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            const text: any = e.target.result;
+            resolve(text);
+        };
+        reader.readAsText(file);
+    });
+}
+
+export function parseExt(uri: string) {
+    return uri.split('.').pop();
+}
+
 export function evalFn(text: string) {
     const fn = new Function('"use strict";return (' + text + ')')(); 
     return fn;
@@ -9,17 +24,6 @@ const re = /(file|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?
 export function matchUris(text: string) {
     const uris = text.match(re);
     return uris || [];
-}
-
-export async function readTextFromFile(file: any): Promise<string> {
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-            const text: any = e.target.result;
-            resolve(text);
-        };
-        reader.readAsText(file);
-    });
 }
 
 export function matchKeyValue(text: string) {
