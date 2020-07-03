@@ -25,7 +25,10 @@
     </div>
 </template>
 <script lang="ts">
-import { Observer } from 'mobx-vue';
+import {
+    Observer,
+} from 'mobx-vue';
+import { observe } from 'mobx';
 import {
     Component,
     Vue,
@@ -49,11 +52,21 @@ import * as util from '@/util';
 })
 export default class extends Vue {
     store: any = store;
+    disposer: any;
     public async readFile(e: any) {
         for(let file of e.target.files) {
             const text: string = await util.readTextFromFile(file);
             store.loadCaml(text);
         };
+    }
+    mounted() {
+        this.disposer = observe(this.store.title, (delta: any) => {
+            document.title = delta.object;
+        });
+        document.title = store.title;
+    }
+    destroyed() {
+        this.disposer();
     }
 }
 </script>

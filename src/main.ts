@@ -17,7 +17,6 @@ const uri = searchParams.get('manifest');
 if(uri) {
     store.loadManifest(uri);
 }
-
 import("../pkg/index.js")
     .then(module => {
         //console.log(module.go());

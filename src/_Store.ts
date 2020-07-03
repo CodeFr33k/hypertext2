@@ -15,6 +15,7 @@ export default class Store {
     records: any;
     disposer: any;
     handler: any;
+    @observable title: any = observable.box('App');
     @observable reducers: any = [];
     @observable htmls: any = [];
 
@@ -109,10 +110,14 @@ export default class Store {
         this.reducers.push(reducer);
     }
     async loadManifest(uri: string) {
+        const match = uri.match(/[^\/]+$/);
+        if(match) {
+            this.title.set(match[0]);
+        }
         const manifest = await Manifest.fetch(uri)
         const files = manifest.toFiles();
         for(let file of files) {
-            const fileuri = uri.replace(/[^\\/]+$/, file);
+            const fileuri = uri.replace(/[^\/]+$/, file);
             this.loadFile(fileuri);
         }
     }
