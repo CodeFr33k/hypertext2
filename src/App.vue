@@ -1,6 +1,5 @@
 <template>
     <div class="app-component">
-        <div class="record-count">Records: {{store.currentRecords.length}}</div>
         <div v-if="store.lines.length == 0">
             <label
                 for="file-upload"
