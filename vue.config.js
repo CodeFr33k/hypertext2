@@ -2,6 +2,9 @@ const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 const path = require("path");
 
 module.exports = {
+    publicPath: process.env.NODE_ENV === 'production'
+    ? '/hypertext2/'
+    : '/',
     configureWebpack: {
         plugins: [
             new WasmPackPlugin({
