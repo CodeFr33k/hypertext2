@@ -1,6 +1,8 @@
 example files [here](examples/)
 
-app deployed [here](https://zen-jepsen-76272a.netlify.app/)
+app deployed [here](https://codefr33k.github.io/hypertext2/)
+
+demo using manifest [here](https://codefr33k.github.io/hypertext2/?manifest=https%3A%2F%2Fcodefr33k.github.io%2Fdocs%2Fhypertext2.txt&interval=5)
 
 ---
 
