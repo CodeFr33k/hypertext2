@@ -70,7 +70,6 @@ export default class extends Vue {
 }
 </script>
 <style lang="sass">
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
 @import '@/common.sass'
 
 .record-count
