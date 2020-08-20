@@ -17,8 +17,6 @@
         </div>
         <div v-else>
             <Lines :lines="store.lines" />
-            <JsButton />
-            <HtmlButton />
             <ReloadButton />
         </div>
     </div>
@@ -94,8 +92,8 @@ export default class extends Vue {
 
 .reload-button-component
     position: fixed
-    bottom: 15px 
-    left: 70%
-    transform: translateY(-50%) 
+    bottom: 30px 
+    left: 50%
+    transform: translateX(-50%) 
 
 </style>

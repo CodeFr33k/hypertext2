@@ -66,6 +66,7 @@ export default class Store {
             for(let [index, html] of this.htmls.entries()) {
                 htmlLines.unshift(
                     '<iframe ' +
+                    `style="width: 100%" ` +
                     `:key="${index}" ` +
                     `src="${html}" ` +
                     '></iframe>'
@@ -102,9 +103,9 @@ export default class Store {
         const reducer = Util.evalFn(text);
         this.addReducer(reducer);
     }
-    loadHtml(text: string) {
-        const html = 'data:text/html;charset=utf-8,' + escape(text);
-        this.htmls.push(html);
+    loadHtml(text: string, file: string) {
+        //const html = 'data:text/html;charset=utf-8,' + escape(text);
+        this.htmls.push(file);
     }
     addReducer(reducer: any) {
         this.reducers.push(reducer);
@@ -125,7 +126,7 @@ export default class Store {
         const ext: string | undefined = Util.parseExt(file);
         const text = await Uri.fetchText(file);
         if(ext) {
-            this.handler[ext](text); 
+            this.handler[ext](text, file); 
         }
     }
 }
