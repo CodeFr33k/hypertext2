@@ -1,8 +1,18 @@
 import { observe } from 'mobx';
 import Record from '@/Record';
+import Part from '@/Part';
 import Store from '@/_Store';
 import * as Uri from '@/Uri';
 jest.mock('@/Uri');
+
+function createRecord() {
+    const record = new Record;
+    const part = new Part;
+    part.lines.push('abc');
+    part.lines.push('');
+    record.parts.push(part);
+    return record;
+}
 
 it('load records when reader changes', (done) => {
     const store = new Store();
@@ -21,18 +31,14 @@ it('load records when reader changes', (done) => {
 
 it('compute lines from records', () => {
     const store = new Store();
-    const record = new Record();
-    record.lines.push('abc');
-    record.lines.push('');
+    const record = createRecord();
     store.records.push(record);
     expect(store.lines).toContain('abc');
 });
 
 it('keep lines from records that pass reduction', () => {
     const store = new Store();
-    const record = new Record();
-    record.lines.push('abc');
-    record.lines.push('');
+    const record = createRecord();
     store.records.push(record);
     store.addReducer(function(records: any) {
         return records;
@@ -54,9 +60,7 @@ it('remove lines from records that fail reduction', () => {
 
 it('display user data when modified by reducer', () => {
     const store = new Store();
-    const record = new Record();
-    record.lines.push('abc');
-    record.lines.push('');
+    const record = createRecord();
     store.records.push(record);
     store.addReducer(function(records: any) {
         records[0].userData.push('123');
