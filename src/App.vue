@@ -30,13 +30,13 @@ import {
     Component,
     Vue,
 } from 'vue-property-decorator';
-import Reader from '@/Reader';
+import Reader from 'caml-js/Reader';
 import Lines from '@/Lines.vue';
 import JsButton from '@/JsButton.vue';
 import HtmlButton from '@/HtmlButton.vue';
 import ReloadButton from '@/ReloadButton.vue';
 import store from '@/store';
-import * as util from '@/util';
+import * as util from 'caml-js/util';
 
 @Observer
 @Component({

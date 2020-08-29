@@ -6,6 +6,11 @@ module.exports = {
     ? '/hypertext2/'
     : '/',
     configureWebpack: {
+        resolve: {
+            alias: {
+               'caml-js': path.resolve(__dirname, 'github.com/caml-js'),
+            }
+        },
         plugins: [
             new WasmPackPlugin({
                 crateDirectory: __dirname,

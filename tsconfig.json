@@ -18,6 +18,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "caml-js/*": [
+        "github.com/caml-js/*"
       ]
     },
     "lib": [

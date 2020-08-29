@@ -1,15 +1,14 @@
 import { observe } from 'mobx';
-import Record from '@/Record';
-import Part from '@/Part';
+import Record from 'caml-js/Record';
+import Part from 'caml-js/Part';
 import Store from '@/_Store';
-import * as Uri from '@/Uri';
-jest.mock('@/Uri');
+import * as Uri from 'caml-js/Uri';
+jest.mock('caml-js/Uri');
 
 function createRecord() {
     const record = new Record;
     const part = new Part;
     part.lines.push('abc');
-    part.lines.push('');
     record.parts.push(part);
     return record;
 }

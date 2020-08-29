@@ -3,12 +3,12 @@ import {
     observable,
     observe,
 } from 'mobx';
-import Reader from '@/Reader';
-import RecordsFactory from '@/RecordsFactory';
-import Record from '@/Record';
-import Manifest from '@/Manifest';
-import * as Util from '@/util';
-import * as Uri from '@/Uri';
+import Reader from 'caml-js/Reader';
+import RecordsFactory from 'caml-js/RecordsFactory';
+import Record from 'caml-js/Record';
+import Manifest from 'caml-js/Manifest';
+import * as Util from 'caml-js/util';
+import * as Uri from 'caml-js/Uri';
 
 export default class Store {
     reader: Reader;

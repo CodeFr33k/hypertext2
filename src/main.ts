@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
-import router from './router'
 import store from '@/store';
-import KeyValue from '@/KeyValue';
-import Tag from '@/Tag';
+import KeyValue from 'caml-js/KeyValue';
+import Tag from 'caml-js/Tag';
 
 // add store to window,
 // so users can access in browser console.
@@ -26,6 +25,5 @@ import("../pkg/index.js")
 Vue.config.productionTip = false
 
 new Vue({
-  router,
   render: h => h(App)
 }).$mount('#app')

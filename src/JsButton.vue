@@ -21,7 +21,7 @@ import {
     Vue,
 } from 'vue-property-decorator';
 import store from '@/store';
-import * as util from '@/util';
+import * as util from 'caml-js/util';
 
 @Observer
 @Component({

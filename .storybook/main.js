@@ -7,7 +7,7 @@ module.exports = {
     ],
     webpackFinal: async (config, { configType }) => {
         config.resolve.alias['@'] = path.resolve(__dirname, '../src/');
-        config.resolve.alias['@/store'] = path.resolve(__dirname, '../src/store/index.ts');
+        config.resolve.alias['caml-js'] = path.resolve(__dirname, '../github.com/caml-js');
         config.resolve.extensions.push(
             '.ts',
             '.tsx',
