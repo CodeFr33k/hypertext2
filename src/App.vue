@@ -18,6 +18,7 @@
         <div v-else>
             <Lines :lines="store.lines" />
             <ReloadButton />
+            <SaveButton />
         </div>
     </div>
 </template>
@@ -35,6 +36,7 @@ import Lines from '@/Lines.vue';
 import JsButton from '@/JsButton.vue';
 import HtmlButton from '@/HtmlButton.vue';
 import ReloadButton from '@/ReloadButton.vue';
+import SaveButton from '@/SaveButton.vue';
 import store from '@/store';
 import * as util from 'caml-js/util';
 
@@ -45,6 +47,7 @@ import * as util from 'caml-js/util';
         HtmlButton,
         Lines,
         ReloadButton,
+        SaveButton,
     }
 })
 export default class extends Vue {
@@ -94,6 +97,12 @@ export default class extends Vue {
     position: fixed
     bottom: 30px 
     left: 50%
+    transform: translateX(-50%) 
+
+.save-button-component
+    position: fixed
+    bottom: 30px 
+    left: 70%
     transform: translateX(-50%) 
 
 </style>

@@ -7,6 +7,7 @@ jest.mock('caml-js/Uri');
 
 function createRecord() {
     const record = new Record;
+    record.id = '123';
     const part = new Part;
     part.lines.push('abc');
     record.parts.push(part);
@@ -90,5 +91,38 @@ it('load html file', async () => {
     const file = 'http://localhost/abc.html';
     await store.loadFile(file);
     expect(store.htmls).toHaveLength(1);
+});
+
+it('load appdata file', async () => {
+    (Uri.fetchText as jest.Mock).mockReturnValueOnce(Promise.resolve('abc\n'));
+    const store = new Store();
+    const file = 'http://localhost/abc.txt.appdata';
+    await store.loadFile(file);
+    expect(store.appData).toHaveLength(1);
+});
+
+it('click adds @click app data', () => {
+    const store = new Store();
+    const record = createRecord();
+    store.records.push(record);
+    store.click('123');
+    expect(store.appData).toHaveLength(1);
+});
+
+it('click increments count', () => {
+    const store = new Store();
+    const record = createRecord();
+    store.records.push(record);
+    store.click('123');
+    expect(record.clickCount).toBe(1);
+});
+
+it('encode app data', () => {
+    const store = new Store();
+    const record = createRecord();
+    store.records.push(record);
+    store.click('123');
+    const data = store.encodeAppData();
+    expect(data).toMatch(/@click/);
 });
 
