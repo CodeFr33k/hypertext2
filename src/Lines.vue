@@ -3,7 +3,7 @@
         <div 
             v-for="line in lines"
             class="line-box"
-            :class="{ html: line.includes('iframe') }"
+            :class="{ html: isHtml(line) }"
         >
             <div
                 v-html="line"
@@ -24,6 +24,13 @@ import {
 @Component
 export default class extends Vue {
     @Prop() readonly lines!: any
+    isHtml(line: string) {
+        return (
+            line.includes('<iframe') ||
+            line.includes('<img') ||
+            line.includes('<video') 
+        );
+    }
 }
 </script>
 <style lang="sass" scoped>
